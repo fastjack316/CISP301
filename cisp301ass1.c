@@ -3,7 +3,7 @@
 	Program Assignment 1 CISP 301
 	Author: Seth Mackling
 	Date: 8/31/2016
-	Purpose: Assemble input
+	Purpose: Display record of fake employee pay
 
 */
 
