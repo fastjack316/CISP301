@@ -18,7 +18,7 @@ int main(void)
 			char answer;
 			int employeecount;
 			int silly; // the need for this variable seems silly to me
-			char comma[1];
+			char comma[1]; //incredibly inefficient way to get a comma inserted
 			
 			strcpy(comma, ", ");
 			
