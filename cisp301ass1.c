@@ -3,7 +3,7 @@
 	Program Assignment 1 CISP 301
 	Author: Seth Mackling
 	Date: 8/31/2016
-	Purpose: Display record of fake employee pay
+	Purpose: Assemble input
 
 */
 
@@ -17,6 +17,7 @@ int main(void)
     {
 			char answer;
 			int employeecount;
+			int silly;
 			
               struct employees // store all employee data linked together
                      {
@@ -53,9 +54,11 @@ int main(void)
 	      scanf("%c",&answer);
 		} while (answer == 'Y' || answer == 'y');
 		printf(REPORTHEADINGS);
-	      printf(format,emp[0].firstname,emp[0].lastname,emp[0].payrate,emp[0].hours,emp[0].gross,emp[0].tax,emp[0].net); // one line output for test purposes
-		  
-		 fflush(stdin); // fflush + getchar pauses screen
+		for (silly = 0; silly < employeecount; silly++)
+		{
+				printf(format,emp[silly].firstname,emp[silly].lastname,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
+		}
+		fflush(stdin); // fflush + getchar pauses screen
 	    getchar();
 		return 0;
 	}
