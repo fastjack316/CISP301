@@ -3,21 +3,21 @@
 	Program Assignment 1 CISP 301
 	Author: Seth Mackling
 	Date: 8/31/2016
-	Purpose: Assemble input
+	Purpose: Assemble fake employee pay statement
 
 */
 
 #include <stdio.h>
 #include <conio.h>
 
-    #define REPORTHEADINGS "     Name                   Pay Rate     Hours     Gross    Tax    Net\n"
-  	#define format         "     %-15s%-20s%8.2f%10.2f%10.2f%8.2f%10.2f\n"
+    #define REPORTHEADINGS "     Name                   Pay Rate     Hours     Gross    Tax    Net\n" //formatting is broken right now
+  	#define format         "     %-15s%-20s%8.2f%10.2f%10.2f%8.2f%10.2f\n" //figure out the right numbers here and how to append , between first last
 
 int main(void)
     {
 			char answer;
 			int employeecount;
-			int silly;
+			int silly; // the need for this variable seems silly to me
 			
               struct employees // store all employee data linked together
                      {
@@ -41,24 +41,25 @@ int main(void)
 	      scanf("%f",&(emp[employeecount].payrate));
 	      printf("Enter hours worked this pay period");
 	      scanf("%f",&(emp[employeecount].hours));
-	      //gross = hours * payrate;   /* processing */
+	      /* processing block 
+		     determines need for overtime, then applies tax and net, stores all data in array */
 	      if (emp[employeecount].hours <= 40)
              emp[employeecount].gross = emp[employeecount].hours * emp[employeecount].payrate;
           else
              emp[employeecount].gross = 40 * emp[employeecount].payrate +1.5*emp[employeecount].payrate*(emp[employeecount].hours-40);
 		emp[employeecount].tax = emp[employeecount].gross * 0.15; // calculate tax using static value
 		emp[employeecount].net = emp[employeecount].gross - emp[employeecount].tax;
-	      employeecount++; // add 1 to variable
+	      employeecount++; // increments array
 	      printf(" Do you have another employee (Y / N) ?");
-	      fflush(stdin); // REQUIRED for a single character input
+	      fflush(stdin);
 	      scanf("%c",&answer);
 		} while (answer == 'Y' || answer == 'y');
 		printf(REPORTHEADINGS);
-		for (silly = 0; silly < employeecount; silly++)
+		for (silly = 0; silly < employeecount; silly++) // iterate outputs through array
 		{
 				printf(format,emp[silly].firstname,emp[silly].lastname,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
 		}
-		fflush(stdin); // fflush + getchar pauses screen
+		fflush(stdin); // allows viewing output
 	    getchar();
 		return 0;
 	}
