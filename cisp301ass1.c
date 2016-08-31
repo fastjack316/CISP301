@@ -8,16 +8,19 @@
 */
 
 #include <stdio.h>
-#include <conio.h>
+#include <string.h>
 
     #define REPORTHEADINGS "     Name                   Pay Rate     Hours     Gross    Tax    Net\n" //formatting is broken right now
-  	#define format         "     %-15s%-20s%8.2f%10.2f%10.2f%8.2f%10.2f\n" //figure out the right numbers here and how to append , between first last
+  	#define format         "     %-15s%-2s%-20s%8.2f%10.2f%10.2f%8.2f%10.2f\n" //figure out the right numbers here and how to append , between first last
 
 int main(void)
     {
 			char answer;
 			int employeecount;
 			int silly; // the need for this variable seems silly to me
+			char comma[1];
+			
+			strcpy(comma, ", ");
 			
               struct employees // store all employee data linked together
                      {
@@ -57,7 +60,7 @@ int main(void)
 		printf(REPORTHEADINGS);
 		for (silly = 0; silly < employeecount; silly++) // iterate outputs through array
 		{
-				printf(format,emp[silly].firstname,emp[silly].lastname,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
+				printf(format,emp[silly].lastname,comma,emp[silly].firstname,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
 		}
 		fflush(stdin); // allows viewing output
 	    getchar();
