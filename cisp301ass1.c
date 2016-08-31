@@ -50,7 +50,7 @@ int main(void)
 	      employeecount++; // add 1 to variable
 	      printf(" Do you have another employee (Y / N) ?");
 	      fflush(stdin); // REQUIRED for a single character input
-	      scanf("%c",answer);
+	      scanf("%c",&answer);
 		} while (answer == 'Y' || answer == 'y');
 		printf(REPORTHEADINGS);
 	      printf(format,emp[0].firstname,emp[0].lastname,emp[0].payrate,emp[0].hours,emp[0].gross,emp[0].tax,emp[0].net); // one line output for test purposes
