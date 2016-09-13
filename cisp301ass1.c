@@ -21,7 +21,8 @@ int main(void)
 			int employeecount;
 			int silly; // the need for this variable seems silly to me
 			char result[52+1]; //output
-			
+			FILE * reportFile; //step 1: declare a report file variable
+			reportFile = fopen("report.txt","wt"); //step 2: create a report file in write-text mode
 			
               struct employees // store all employee data linked together
                      {
@@ -59,13 +60,17 @@ int main(void)
 	      scanf("%c",&answer);
 		} while (answer == 'Y' || answer == 'y');
 		printf(REPORTHEADINGS);
+		fprintf(reportFile,REPORTHEADINGS); //step 3: fprintf to print to file instead of stdout
 		for (silly = 0; silly < employeecount; silly++) // iterate outputs through array
 		{
 				strcpy(result,emp[silly].lastname); //constructs the single string name
 				strcat(strcat(result,", "),emp[silly].firstname);
 				printf(format,result,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
+				fprintf(reportFile,format,result,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net);//step 3: fprintf to print to file instead of stdout
 		}
 		fflush(stdin); // allows viewing output
 	    getchar();
+	    fclose(reportFile);//step 4: ALWAYS close files
 		return 0;
 }
+
