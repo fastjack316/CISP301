@@ -51,7 +51,7 @@ int main(void)
             	emp[employeecount].gross = emp[employeecount].hours * emp[employeecount].payrate;
           else
              emp[employeecount].gross = 40 * emp[employeecount].payrate +1.5*emp[employeecount].payrate*(emp[employeecount].hours-40);
-		emp[employeecount].tax = emp[employeecount].gross * 0.15; // calculate tax using static value
+		emp[employeecount].tax = emp[employeecount].gross * 0.15; // calculate tax using static value equal to 15%
 		emp[employeecount].net = emp[employeecount].gross - emp[employeecount].tax;
 	      employeecount++; // increments array
 	      printf(" Do you have another employee (Y / N) ?");
