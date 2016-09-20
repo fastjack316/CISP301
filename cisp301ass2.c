@@ -1,17 +1,18 @@
 /* preamble
 
-	Program Assignment 1 CISP 301
+	Program Assignment 1 and 2 CISP 301
 	Author: Seth Mackling
 	Date: 8/31/2016
 	Purpose: Assemble fake employee pay statement
 	
 	9/12/2016 Seth Mackling strcpy strcat series added, formatting fixed for columns
 	9/12/2016 Seth Mackling redirect output to file instead of stdout
-	9/19/2016 Seth Mackling added divider line for header of output
+	9/19/2016 Seth Mackling begin work to convert assignment 1 to assignment 2
 
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
     #define REPORTHEADINGS "     Name                   Pay Rate     Hours     Gross Pay     Tax Paid     Net Pay\n" //formatting is broken right now
@@ -24,10 +25,21 @@ int main(void)
 			int silly; // the need for this variable seems silly to me
 			char result[52+1]; //output
 			float TAXRATE; //constant taxrate
-			//dividing line for the output follows
-			char DIVIDER [85+1] = "     ================================================================================\n";
 			FILE * reportFile; //step 1: declare a report file variable
 			reportFile = fopen("report.txt","wt"); //step 2: create a report file in write-text mode
+			if (reportFile == NULL)
+			                  {
+                              printf(" File open request has failed \n");
+                              printf(" Terminating application \n");
+                              fflush(stdin);
+                              getchar();
+                              exit(-100); //error handling for inability to create file
+                              }
+			float payratetotal, hourstotal, grosstotal, taxtotal, finaltotal; //variables needed for running totals
+			float payrateavg, hoursavg, grossavg, taxavg, finalavg;
+			char TOTALS[6+1] = "Totals"; //string statics for report
+			char AVERAGES[8+1] = "Averages";
+			char DIVIDER [85+1] = "     ================================================================================\n";
 			
               struct employees // store all employee data linked together
                      {
@@ -40,7 +52,10 @@ int main(void)
 					 float net;
                      } emp[9]; // inefficiently assign static memory because i don't know how to use pointers yet
 			TAXRATE = 0.15; //define constant	
+
 			employeecount = 0;  //initialize a counter to progress through array
+			//inits all running total variables to 0
+			payratetotal = hourstotal = grosstotal = taxtotal = finaltotal = payrateavg = hoursavg = grossavg = taxavg = finalavg = 0;
 		do
 			{
 	      printf("Enter employee's first name ");  // input section
@@ -73,7 +88,25 @@ int main(void)
 				strcat(strcat(result,", "),emp[silly].firstname);
 				printf(format,result,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
 				fprintf(reportFile,format,result,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net);//step 3: fprintf to print to file instead of stdout
+				hourstotal = hourstotal + emp[silly].hours;
+                payratetotal = payratetotal + emp[silly].payrate;
+                grosstotal = grosstotal + emp[silly].gross;
+                taxtotal = taxtotal + emp[silly].tax;
+                finaltotal = finaltotal + emp[silly].net;
 		}
+		//calculation block for averages
+		payrateavg = payratetotal / employeecount;
+		hoursavg = hourstotal / employeecount;
+		grossavg = grosstotal / employeecount;
+		taxavg = taxtotal / employeecount;
+		finalavg = finaltotal / employeecount;
+		
+		printf("\n");
+        printf(format,TOTALS,payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
+        printf(format,AVERAGES,payrateavg,hoursavg,grossavg,taxavg,finalavg);
+        fprintf(reportFile,"\n");
+		fprintf(reportFile,format,TOTALS,payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
+		fprintf(reportFile,format,AVERAGES,payrateavg,hoursavg,grossavg,taxavg,finalavg);
 		fflush(stdin); // allows viewing output
 	    getchar();
 	    fclose(reportFile);//step 4: ALWAYS close files
