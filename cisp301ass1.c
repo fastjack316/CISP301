@@ -44,7 +44,9 @@ int main(void)
 		do
 			{
                             if (employeecount = 10) //escape function to prevent overflowing memory allocation
-                                         break;
+                               {
+                                break;
+                                }
 	      printf("Enter employee's first name ");  // input section
 	      scanf("%s",emp[employeecount].firstname);
 		  printf("Enter employee's last name ");
