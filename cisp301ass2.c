@@ -56,6 +56,8 @@ int main(void)
 			payratetotal = hourstotal = grosstotal = taxtotal = finaltotal = payrateavg = hoursavg = grossavg = taxavg = finalavg = 0;
 		do
 			{
+                         if (employeecount = 10) //escape function to prevent overflowing memory allocation
+                            break;
 	      printf("Enter employee's first name ");  // input section
 	      scanf("%s",emp[employeecount].firstname);
 		  printf("Enter employee's last name ");
