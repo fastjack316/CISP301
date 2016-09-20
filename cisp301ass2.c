@@ -37,8 +37,6 @@ int main(void)
                               }
 			float payratetotal, hourstotal, grosstotal, taxtotal, finaltotal; //variables needed for running totals
 			float payrateavg, hoursavg, grossavg, taxavg, finalavg;
-			char TOTALS[6+1] = "Totals"; //string statics for report
-			char AVERAGES[8+1] = "Averages";
 			char DIVIDER [85+1] = "     ================================================================================\n";
 			
               struct employees // store all employee data linked together
@@ -87,12 +85,14 @@ int main(void)
 				strcpy(result,emp[silly].lastname); //constructs the single string name
 				strcat(strcat(result,", "),emp[silly].firstname);
 				printf(format,result,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net); 
+				//cats all the outputs to a formatted line
 				fprintf(reportFile,format,result,emp[silly].payrate,emp[silly].hours,emp[silly].gross,emp[silly].tax,emp[silly].net);//step 3: fprintf to print to file instead of stdout
-				hourstotal = hourstotal + emp[silly].hours;
-                payratetotal = payratetotal + emp[silly].payrate;
-                grosstotal = grosstotal + emp[silly].gross;
-                taxtotal = taxtotal + emp[silly].tax;
-                finaltotal = finaltotal + emp[silly].net;
+				//captures each employee's values to a total
+                hourstotal += emp[silly].hours;
+                payratetotal += emp[silly].payrate;
+                grosstotal += emp[silly].gross;
+                taxtotal += emp[silly].tax;
+                finaltotal += emp[silly].net;
 		}
 		//calculation block for averages
 		payrateavg = payratetotal / employeecount;
@@ -102,11 +102,11 @@ int main(void)
 		finalavg = finaltotal / employeecount;
 		
 		printf("\n");
-        printf(format,TOTALS,payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
-        printf(format,AVERAGES,payrateavg,hoursavg,grossavg,taxavg,finalavg);
+        printf(format,"Totals",payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
+        printf(format,"Averages",payrateavg,hoursavg,grossavg,taxavg,finalavg);
         fprintf(reportFile,"\n");
-		fprintf(reportFile,format,TOTALS,payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
-		fprintf(reportFile,format,AVERAGES,payrateavg,hoursavg,grossavg,taxavg,finalavg);
+		fprintf(reportFile,format,"Totals",payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
+		fprintf(reportFile,format,"Averages",payrateavg,hoursavg,grossavg,taxavg,finalavg);
 		fflush(stdin); // allows viewing output
 	    getchar();
 	    fclose(reportFile);//step 4: ALWAYS close files
