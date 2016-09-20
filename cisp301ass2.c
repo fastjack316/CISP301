@@ -95,11 +95,11 @@ int main(void)
                 finaltotal += emp[silly].net;
 		}
 		//calculation block for averages
-		payrateavg = payratetotal / employeecount;
-		hoursavg = hourstotal / employeecount;
-		grossavg = grosstotal / employeecount;
-		taxavg = taxtotal / employeecount;
-		finalavg = finaltotal / employeecount;
+		payrateavg /= employeecount;
+		hoursavg /= employeecount;
+		grossavg /= employeecount;
+		taxavg /= employeecount;
+		finalavg /= employeecount;
 		
 		printf("\n");
         printf(format,"Totals",payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
