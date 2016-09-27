@@ -8,6 +8,7 @@
 	9/12/2016 Seth Mackling strcpy strcat series added, formatting fixed for columns
 	9/12/2016 Seth Mackling redirect output to file instead of stdout
 	9/19/2016 Seth Mackling begin work to convert assignment 1 to assignment 2
+	9/26/2016 Seth Mackling removed broken escape clause, solved buffer overflow in divider
 
 */
 
@@ -37,7 +38,7 @@ int main(void)
                               }
 			float payratetotal, hourstotal, grosstotal, taxtotal, finaltotal; //variables needed for running totals
 			float payrateavg, hoursavg, grossavg, taxavg, finalavg;
-			char DIVIDER [85+1] = "     ================================================================================\n";
+			char DIVIDER [86+1] = "     ================================================================================\n";
 			
               struct employees // store all employee data linked together
                      {
@@ -56,10 +57,10 @@ int main(void)
 			payratetotal = hourstotal = grosstotal = taxtotal = finaltotal = payrateavg = hoursavg = grossavg = taxavg = finalavg = 0;
 		do
 			{
-                         if (employeecount = 10)
-                            { //escape function to prevent overflowing memory allocation
-                            break;
-                            }
+                         //if (employeecount = 10) - function is completely broken and causes garbage output to stdout
+                         //   { //escape function to prevent overflowing memory allocation
+                         //   break;
+                         //   }
 	      printf("Enter employee's first name ");  // input section
 	      scanf("%s",emp[employeecount].firstname);
 		  printf("Enter employee's last name ");
@@ -99,11 +100,11 @@ int main(void)
                 finaltotal += emp[silly].net;
 		}
 		//calculation block for averages
-		payrateavg /= employeecount;
-		hoursavg /= employeecount;
-		grossavg /= employeecount;
-		taxavg /= employeecount;
-		finalavg /= employeecount;
+		payrateavg = payratetotal / employeecount;
+		hoursavg = hourstotal / employeecount;
+		grossavg = grosstotal / employeecount;
+		taxavg = taxtotal / employeecount;
+		finalavg = finaltotal / employeecount;
 		
 		printf("\n");
         printf(format,"Totals",payratetotal,hourstotal,grosstotal,taxtotal,finaltotal);
